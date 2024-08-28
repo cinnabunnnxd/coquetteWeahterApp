@@ -3,6 +3,22 @@ const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&q="
 const searchBox = document.querySelector(".search input")
 const searcBtn = document.querySelector(".search button")
 const weatherIcon = document.querySelector(".weatherIcon")
+const cursorDot = document.querySelector("[data-cursor-dot]")
+const cursorOutLine = document.querySelector("[data-cursor-outline]")
+
+window.addEventListener("mousemove", (e) => {
+    const posX = e.clientX
+    const posY = e.clientY
+
+    cursorDot.style.left = `${posX}px`
+    cursorDot.style.top = `${posY}px`
+
+    cursorDot.animate({
+        left: `${posX}px`,
+        top: `${posY}px`
+    }, { duration: 1500, fill: "forwards" })
+
+})
 
 async function checkWeather(city) {
     const response = await fetch(apiUrl + city + `&appId=${apiKey}`)
