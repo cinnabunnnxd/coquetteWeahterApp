@@ -17,7 +17,7 @@ async function checkWeather(city) {
         document.querySelector(".city").textContent = `${data.name}`
         document.querySelector(".temp").textContent = `${Math.round(data.main.temp)}°c`
         document.querySelector(".humidity").textContent = `${data.main.humidity}%`
-        document.querySelector(".wind").textContent = `${data.wind.speed}km/h`
+        document.querySelector(".wind").textContent = `${Math.round(data.wind.speed).toFixed(2)}km/h`
 
         if (data.weather[0].main == "Clouds") {
             weatherIcon.src = "images/clouds.png"
