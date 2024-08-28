@@ -38,7 +38,12 @@ searcBtn.addEventListener("click", () => {
     checkWeather(searchBox.value)
 
 })
-
+searchBox.addEventListener("keydown", () => {
+    if (event.key === "Enter") {
+        event.preventDefault
+        checkWeather(searchBox.value)
+    }
+})
 
 
 
