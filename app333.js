@@ -3,6 +3,22 @@ const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&q="
 const searchBox = document.querySelector(".search input")
 const searcBtn = document.querySelector(".search button")
 const weatherIcon = document.querySelector(".weatherIcon")
+const cursorDot = document.querySelector("[data-cursor-dot]")
+const cursorOutLine = document.querySelector("[data-cursor-outline]")
+
+window.addEventListener("mousemove", (e) => {
+    const posX = e.clientX
+    const posY = e.clientY
+
+    cursorDot.style.left = `${posX}px`
+    cursorDot.style.top = `${posY}px`
+
+    cursorDot.animate({
+        left: `${posX}px`,
+        top: `${posY}px`
+    }, { duration: 1500, fill: "forwards" })
+
+})
 
 async function checkWeather(city) {
     const response = await fetch(apiUrl + city + `&appId=${apiKey}`)
@@ -17,7 +33,7 @@ async function checkWeather(city) {
         document.querySelector(".city").textContent = `${data.name}`
         document.querySelector(".temp").textContent = `${Math.round(data.main.temp)}°c`
         document.querySelector(".humidity").textContent = `${data.main.humidity}%`
-        document.querySelector(".wind").textContent = `${data.wind.speed}km/h`
+        document.querySelector(".wind").textContent = `${Math.round(data.wind.speed).toFixed(2)}km/h`
 
         if (data.weather[0].main == "Clouds") {
             weatherIcon.src = "images/clouds.png"
@@ -42,7 +58,12 @@ searchBox.addEventListener("keydown", () =>{
         checkWeather(searchBox.value)
     }
 })
-
+searchBox.addEventListener("keydown", () => {
+    if (event.key === "Enter") {
+        event.preventDefault
+        checkWeather(searchBox.value)
+    }
+})
 
 
 
